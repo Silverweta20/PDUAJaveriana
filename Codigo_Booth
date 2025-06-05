@@ -1,0 +1,170 @@
+PASO#   Función:      Instrucciones           Binario
+1       init_count:   MOV ACC, CTE            0b00011000
+2                    0x200                   0b11001000
+3                    MOV DPTR, ACC           0b00101000
+4                    MOV ACC, CTE            0b00011000
+5                    0x08                    0b00001000
+6                    MOV [DPTR], ACC         0b00110000
+7       init_A:       MOV ACC, CTE            0b00011000
+8                    0x208                   0b11010000
+9                    MOV DPTR, ACC           0b00101000
+10                   MOV ACC, CTE            0b00011000
+11                   0x00000000              0b00000000
+12                   MOV [DPTR], ACC         0b00110000
+13      M:            MOVE ACC, CTE           0b00011000
+14                   0x232                   0b11101000
+15                   MOVE DPTR, ACC          0b00101000
+16                   MOV ACC, CTE            0b00011000
+17                   Valor1                  valor1
+18                   MOVE [DPTR], ACC        0b00110000
+19      init_Q:       MOV ACC, CTE            0b00011000
+20                   0x216(Q)                0b11011000
+21                   MOV DPTR, ACC           0b00101000
+22                   MOV ACC, CTE            0b00011000
+23                   Valor2                  valor2
+24                   Mov [DPTR], ACC         0b00110000
+25      init_Q1:      MOV ACC, CTE            0b00011000
+26                   0x224                   0b11100000
+27                   MOV DPTR, ACC           0b00101000
+28                   MOV ACC, CTE            0b00011000
+29                   0x00000000              0b00000000
+30                   MOV [DPTR], ACC         0b00110000
+31      Init_loop:    MOV ACC, CTE            0b00011000
+32                   0x216(Q)                0b11011000
+33                   MOV DPTR, ACC           0b00101000
+34                   MOV ACC, [DPTR]         0b00100000
+35                   MOV A, ACC              0b00010000
+36                   MOV ACC, CTE            0b00011000
+37                   0x00000001              0b00000001
+38                   AND ACC, A              0b01000000
+39                   MOV A, ACC              0b00010000
+40                   MOV ACC, CTE            0b00011000
+41                   0x224(Q1)               0b11100000
+42                   MOVE DPTR, ACC          0b00101000
+43                   MOV ACC, [DPTR]         0b00100000
+44                   XOR ACC, A              0b10101000
+45                   JZ CTE                  0b01011000
+46      Store_Q0_Q1:                         0b01011010
+47                   JMP CTE                 0b01010000
+48      10_OR_01:                             0b00110001
+49                   MOV ACC, CTE            0b00011000
+50                   0x224(Q1)               0b11100000
+51                   MOVE DPTR, ACC          0b00101000
+52                   MOV ACC, [DPTR]         0b00100000
+53                   JZ CTE                  0b01011000
+54      SUB_AM:                               0b00111001
+55                   JMP CTE                 0b01010000
+56      ADD_AM:                               0b01001010
+57                   MOVE ACC, CTE           0b00011000
+58                   0x232(M)                0b11101000
+59                   MOVE DPTR, ACC          0b00101000
+60                   MOV ACC, [DPTR]         0b00100000
+61                   INV ACC                 0b00111000
+62                   MOV A, ACC              0b00010000
+63                   MOV ACC, CTE            0b00011000
+64                   0x00000001              0b00000001
+65                   ADD ACC, A              0b01001000
+66                   MOV A, ACC              0b00010000
+67                   MOV ACC, CTE            0b00011000
+68                   0x208(A)                0b11010000
+69                   MOV DPTR, ACC           0b00101000
+70                   MOV ACC, [DPTR]         0b00100000
+71                   ADD ACC, A              0b01001000
+72                   JMP CTE                 0b01010000
+73      SHIFTER:                              0b01010100
+74                   MOVE ACC, CTE           0b00011000
+75                   0x232(M)                0b11101000
+76                   MOVE DPTR, ACC          0b00101000
+77                   MOV ACC, [DPTR]         0b00100000
+78                   MOV A, ACC              0b00010000
+79                   MOV ACC, CTE            0b00011000
+80                   0x208(A)                0b11010000
+81                   MOV DPTR, ACC           0b00101000
+82                   MOV ACC, [DPTR]         0b00100000
+83                   ADD ACC, A              0b01001000
+84      Store_Result: MOV A, ACC              0b00010000
+85                   MOV ACC, CTE            0b00011000
+86                   0x208(A)                0b11010000
+87                   MOV DPTR, ACC           0b00101000
+88                   MOV ACC, A              0b00001000
+89                   MOV [DPTR], ACC         0b00110000
+90      Store_Q0_Q1:  MOV ACC, CTE            0b00011000
+91                   0x216(Q)                0b11011000
+92                   MOVE DPTR, ACC          0b00101000
+93                   MOV ACC, [DPTR]         0b00100000
+94                   MOV A, ACC              0b00010000
+95                   MOV ACC, CTE            0b00011000
+96                   0x00000001              0b00000001
+97                   AND ACC, A              0b01000000
+98                   MOV A, ACC              0b00010000
+99                   MOV ACC, CTE            0b00011000
+100                  0x224(Q1)               0b11100000
+101                  MOV DPTR, ACC           0b00101000
+102                  MOV ACC,A               0b00001000
+103                  MOV [DPTR], ACC         0b00110000
+104     SHIFT_Q:     MOV ACC, CTE            0b00011000
+105                  0x216(Q)                0b11011000
+106                  MOV DPTR, ACC           0b00101000
+107                  MOV ACC, [DPTR]         0b00100000
+108                  SFR ACC                 0b10101000
+109                  MOV [DPTR], ACC         0b00110000
+110     Compare_A0:  MOV ACC, CTE            0b00011000
+111                  0x208(A)                0b11010000
+112                  MOV DPTR, ACC           0b00101000
+113                  MOV ACC, [DPTR]         0b00100000
+114                  MOV A, ACC              0b00010000
+115                  MOV ACC, CTE            0b00011000
+116                  0x00000001              0b00000001
+117                  AND ACC, A              0b01000000
+118                  JZ CTE                  0b01011000
+119     SHIFT_A:                              0b10000001
+120     STORE_A0_Q8: MOV ACC, CTE            0b00011000
+121                  0x216(Q)                0b11011000
+122                  MOV DPTR, ACC           0b00101000
+123                  MOV ACC, [DPTR]         0b00100000
+124                  MOV A, ACC              0b00010000
+125                  MOV ACC, CTE            0b00011000
+126                  0x10000000              0b10000000
+127                  OR ACC, A               0b10000000
+128                  MOV [DPTR], ACC         0b00110000
+129     SHIFT_A:     MOV ACC, CTE            0b00011000
+130                  0x208(A+-M)             0b11010000
+131                  MOV DPTR, ACC           0b00101000
+132                  MOV ACC, [DPTR]         0b00100000
+133                  SFR ACC                 0b10101000
+134                  MOV [DPTR], ACC         0b00110000
+135     COMPARE_A7:  MOV A, ACC              0b00010000
+136                  MOV ACC, CTE            0b00011000
+137                  0x01000000              0b01000000
+138                  AND ACC, A              0b01000000
+139                  JZ CTE                  0b01011000
+140     Iteraciones++:                       0b10010101
+141     STORE_A8:    MOV ACC, CTE            0b00011000
+142                  0x10000000              0b10000000
+143                  OR ACC, A               0b10000000
+144                  MOV [DPTR], ACC         0b00110000
+145     Iteraciones++:MOV ACC, CTE           0b00011000
+146                  0x200(I)                0b11001000
+147                  MOV DPTR, ACC           0b00101000
+148                  MOV ACC, [DPTR]         0b00100000
+149                  MOV A, ACC              0b00010000
+150                  MOV ACC, CTE            0b00011000
+151                  0x11111111              0b11111111
+152                  ADD ACC, A              0b01001000
+153                  MOV [DPTR], ACC         0b00110000
+154                  JZ CTE                  0b01011000
+155     END_LOOP:                            0b10011110
+156                  JMP CTE                 0b01010000
+157     Init_loop:                           0b00011111
+158     END_LOOP:    MOV ACC, CTE            0b00011000
+159                  0x208                   0b11010000
+160                  MOV DPTR, ACC           0b00101000
+161                  MOV ACC, [DPTR]         0b00100000
+162                  MOV A, ACC              0b00010000
+163                  MOV ACC, CTE            0b00011000
+164                  0x216                   0b11011000
+165                  MOV DPTR, ACC           0b00101000
+166                  MOV ACC, [DPTR]         0b00100000
+167     Halt:        Halt                   0b11111000
+168                  JMP CTE                 0b01010000
+169                  Halt                    0b10100110
